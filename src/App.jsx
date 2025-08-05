@@ -7,7 +7,9 @@ function App() {
 
   return (
     <>
-      <Banner></Banner>
+      <Banner text="Heello hi from app"></Banner>
+      <Banner text="saaweasdas"></Banner>
+      
     </>
   )
 }

@@ -1,15 +1,21 @@
-import logo from "../assets/facet.jpg"
-const Banner = () => {
+import logo from "../assets/facet.jpg";
+import {logoClass} from "./banner.module.css";
+
+const inlineStyles = {
+    color: "red",
+    fontSize: "24px",
+}
+const Banner = (props) => {
     return (
-        <header>
-            <div>
+        <header className="row">
+            <div className="col-4">
                 {/* form src */}
-                <img src={logo} alt="logo"></img>
+                <img src={logo} className={logoClass} alt="logo"></img>
             </div>
-           <div>
-               Provide
+           <div className="col-4" style={inlineStyles}>
+               {props.text}
            </div>
-           <div>
+           <div className="col-4">
                {/* from global assets */}
            <img src="./vite.svg" alt="logo"></img>
            </div>
