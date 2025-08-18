@@ -1,4 +1,7 @@
-const Houses =[
+import { useState } from "react";
+import HouseRow from "./houserow";
+
+const HousesArray =[
     {
         id: 1,
         name: "AAA",
@@ -17,6 +20,18 @@ const Houses =[
 ]
 
 const HouseList = () => {
+    const [houses, setHouses] = useState(HousesArray);
+
+    const addHouse = () => {
+        setHouses([
+            ...houses,
+            {
+                id: 4,
+                name: "cccc",
+                address: "dddd"
+            }
+        ])
+    }
     return (
         <>
             <h5>House List !!</h5>
@@ -29,23 +44,13 @@ const HouseList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>AAA</td>
-                        <td>AADDRR</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>BBB</td>
-                        <td>AADDRR</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>CCC</td>
-                        <td>AADDRR</td>
-                    </tr>
+                    {houses.map(h => <HouseRow key={h.id} houserow={h}/>
+                    )}
                 </tbody>
             </table>
+            <button onClick={addHouse} className="btn btn-primary">
+                Add House
+            </button>
         </>
     )
 }
