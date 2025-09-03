@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HouseRow from "./houserow";
 
-const HousesArray =[
+const HousesArray1 =[
     {
         id: 1,
         name: "AAA",
@@ -20,14 +20,24 @@ const HousesArray =[
 ]
 
 const HouseList = () => {
-    const [houses, setHouses] = useState(HousesArray);
+    const [houses, setHouses] = useState([]);
+
+    useEffect(() => {
+
+        const fetchHouses = async () => { //api call
+            const response = await fetch('https://127.0.0.1:4000/house')        
+                .then(res => res.json())
+                .then(data => setHouses(data));
+        };
+        fetchHouses();
+    },[ ]);
 
     const addHouse = () => {
         setHouses([
             ...houses,
             {
                 id: 4,
-                name: "cccc",
+                country: "cccc",
                 address: "dddd"
             }
         ])
@@ -39,7 +49,7 @@ const HouseList = () => {
                 <thead>
                     <tr>
                         <th>SL No</th>
-                        <th>Name</th>
+                        <th>Country</th>
                         <th>Address</th>
                     </tr>
                 </thead>

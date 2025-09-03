@@ -3,7 +3,7 @@ const HouseRow = ({ houserow }) => {
         <>
             <tr >
                 <td>{houserow.id}</td>
-                <td>{houserow.name}</td>
+                <td>{houserow.country}</td>
                 <td>{houserow.address}</td>
             </tr>
         </>
