@@ -1,10 +1,10 @@
-const HouseRow = ({ houserow }) => {
+const HouseRow = ({ houserow,selectHouse }) => {
     return (
         <>
-            <tr >
+            <tr onClick={()=> selectHouse(houserow)} >
                 <td>{houserow.id}</td>
                 <td>{houserow.country}</td>
-                <td>{houserow.address}</td>
+                <td className={`${houserow.price >=500000? "text-primary": ""}`}>{houserow.address}</td>
             </tr>
         </>
     )

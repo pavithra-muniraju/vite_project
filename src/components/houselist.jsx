@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import HouseRow from "./houserow";
 
-const HousesArray1 =[
+const HousesArray1 = [
     {
         id: 1,
         name: "AAA",
@@ -19,18 +19,12 @@ const HousesArray1 =[
     }
 ]
 
-const HouseList = () => {
-    const [houses, setHouses] = useState([]);
+const fetchHouses = fetch('https://127.0.0.1:4000/house').then(res => res.json());
 
-    useEffect(() => {
+const HouseList = ({ selectHouse }) => {
 
-        const fetchHouses = async () => { //api call
-            const response = await fetch('https://127.0.0.1:4000/house')        
-                .then(res => res.json())
-                .then(data => setHouses(data));
-        };
-        fetchHouses();
-    },[ ]);
+    const houseResult = use(fetchHouses);
+    const [houses, setHouses] = useState(houseResult);
 
     const addHouse = () => {
         setHouses([
@@ -54,8 +48,9 @@ const HouseList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {houses.map(h => <HouseRow key={h.id} houserow={h}/>
-                    )}
+                    {houses.map((h) => (
+                        <HouseRow key={h.id} houserow={h} selectHouse={selectHouse} />
+                    ))}
                 </tbody>
             </table>
             <button onClick={addHouse} className="btn btn-primary">
