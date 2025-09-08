@@ -1,5 +1,7 @@
 import { use, useEffect, useState } from "react";
 import HouseRow from "./houserow";
+import loadingStatus from "../hooks/loadingStatus";
+import LoadingIndicator from "./loadingIndicator";
 
 const HousesArray1 = [
     {
@@ -22,10 +24,16 @@ const HousesArray1 = [
 const fetchHouses = fetch('https://127.0.0.1:4000/house').then(res => res.json());
 
 const HouseList = ({ selectHouse }) => {
-
+    // const [loadingState, setLoadingState] = useState(loadingStatus.loading);
+    // setLoadingState(loadingStatus.loading);
     const houseResult = use(fetchHouses);
+    
     const [houses, setHouses] = useState(houseResult);
-
+// setLoadingState(loadingStatus.loaded);
+    // if(loadingState !== loadingStatus.loaded) {
+    //     return <LoadingIndicator loadingState={loadingState}></LoadingIndicator>
+    // }
+     
     const addHouse = () => {
         setHouses([
             ...houses,

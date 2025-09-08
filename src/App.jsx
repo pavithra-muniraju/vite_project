@@ -7,6 +7,10 @@ import House from './components/house'
 function App() {
   const [count, setCount] = useState(0)
 
+  const setSelectedHouseWrapper = (house) => {
+    setSelectedHouse(house);
+  };
+
   const [selectedHouse, setSelectedHouse] = useState(null);
   return (
     <>
@@ -14,7 +18,7 @@ function App() {
       <Banner text="saaweasdas"></Banner>
       <Suspense fallback={<h3>Loading....</h3>}>
         {/* <HouseList></HouseList> */}
-        {selectedHouse ? <House house={selectedHouse} /> : <HouseList selectHouse={setSelectedHouse} />}
+        {selectedHouse ? <House house={selectedHouse} /> : <HouseList selectHouse={setSelectedHouseWrapper} />}
 
         
       </Suspense>
