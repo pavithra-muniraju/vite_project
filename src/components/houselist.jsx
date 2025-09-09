@@ -3,16 +3,17 @@ import HouseRow from "./houserow";
 import loadingStatus from "../hooks/loadingStatus";
 import LoadingIndicator from "./loadingIndicator";
 import useHouse from "../hooks/useHouse";
+import ErrorBoundary from "./errorBoundry";
 
 
-const HouseList = ({ selectHouse }) => {
-    
-    
+const HouseList = () => {
+
+
     const [houses, setHouses, loadingState] = useHouse();
-    if(loadingState !== loadingStatus.loaded) {
+    if (loadingState !== loadingStatus.loaded) {
         return <LoadingIndicator loadingState={loadingState}></LoadingIndicator>
     }
-     
+
     const addHouse = () => {
         setHouses([
             ...houses,
@@ -35,9 +36,11 @@ const HouseList = ({ selectHouse }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {houses.map((h) => (
-                        <HouseRow key={h.id} houserow={h} selectHouse={selectHouse} />
-                    ))}
+                    <ErrorBoundary fallback="Error in loading house row">
+                        {houses.map((h) => (
+                            <HouseRow key={h.id} houserow={h} />
+                        ))}
+                    </ErrorBoundary>
                 </tbody>
             </table>
             <button onClick={addHouse} className="btn btn-primary">

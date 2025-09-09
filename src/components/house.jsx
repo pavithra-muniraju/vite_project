@@ -1,10 +1,16 @@
-import React from 'react';
+import { useContext } from "react";
+import navigationContext from "../navigation/navigationContext";
+import navValues from "../navigation/navValues";
 
-const House = ({ house }) => {
+
+const House = () => {
+    const {parm: house} = useContext(navigationContext)
     if (!house) return <div>No house data provided.</div>;
 
+    const {navigate} = useContext(navigationContext)
     return (
         <div>
+            <button className="btn btn-primary" onClick={()=> navigate(navValues.home)}>Back to HouseList</button>
             <h2>{house.country}</h2>
             <p><strong>Address:</strong> {house.address}</p>
             <p><strong>Price:</strong> {house.price}</p>
