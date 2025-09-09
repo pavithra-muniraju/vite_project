@@ -12,7 +12,7 @@ const HouseRow = ({ houserow }) => {
             <tr onClick={()=> navigate(navValues.house, houserow)} >
                 <td>{houserow.id}</td>
                 <td>{houserow.country}</td>
-                <td className={`${houserow.price >=500000? "text-primary": ""}`}>{houserow.address}</td>
+                <td className={`${houserow.price >=500000? "text-primary": ""}`}>{houserow.address}</td>                
             </tr>
         </>
     )

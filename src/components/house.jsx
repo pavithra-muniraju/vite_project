@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import navigationContext from "../navigation/navigationContext";
 import navValues from "../navigation/navValues";
+import Bids from "./bids";
 
 
 const House = () => {
@@ -15,6 +16,7 @@ const House = () => {
             <p><strong>Address:</strong> {house.address}</p>
             <p><strong>Price:</strong> {house.price}</p>
             <p><strong>Description:</strong> {house.description}</p>
+            <Bids house={house}></Bids>
         </div>
     );
 };
