@@ -1,6 +1,6 @@
 const loadingStatus = {
     loaded: "Loaded",
-    loading: "Loading",
+    isLoading: "Loading",
     hasError: "An Error Occured while Loading"
 }
 
