@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useOptimistic, useState } from "react";
 import loadingStatus from "./loadingStatus";
 
 const useBids = (houseId) => {
@@ -6,6 +6,7 @@ const useBids = (houseId) => {
     const [bids, setBids] = useState([]);
     const [loadingState, setLoadingState] = useState(loadingStatus.isLoading);
 
+    const [optimisticBids, addOptimisticBids] =  useOptimistic(bids, (bids, newBid) => [...bids, newBid]);
     useEffect(() => {
         const fetchBids = async () => {
             setLoadingState(loadingStatus.isLoading);
@@ -34,6 +35,7 @@ const useBids = (houseId) => {
     }
 
     const addBid = async (bid) => {
+        addOptimisticBids(bid);
         const postedBid = await postBid(bid);
         setBids([...bids, postedBid]);
     }

@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import loadingStatus from "../hooks/loadingStatus";
 import useBids from "../hooks/useBids";
 import LoadingIndicator from "./loadingIndicator";
 
 const Bids = ({ house }) => {
     const [bids, loadingState, addBid] = useBids(house.id);
+    const [isPending, startTransition] = useTransition()
 
     const emptyBid = {
         houseId: house.id,
@@ -19,8 +20,18 @@ const Bids = ({ house }) => {
     }
 
     const onBidSubmitClick = () => {
-        addBid(newBid);
+        startTransition(async() => await addBid(newBid));
+        
         setNewBid(emptyBid)
+    }
+
+    const bidSubmitAction = async (formData) => {
+        startTransition(async() => await addBid({
+            houseId: house.id,
+            bidder: formData.get("bidder"),
+            amount: parseInt(formData.get("amount"))    
+        })
+    )
     }
 
     return (
@@ -47,7 +58,7 @@ const Bids = ({ house }) => {
                 </table>
                 </div>
             </div>
-            <div className="row">
+            {/* <div className="row">
                 <div className="col-5">
                     <input id="bidder" type="text" className="form-control" placeholder="Bidder Name"
                         value={newBid.bidder} onChange={(e) => setNewBid({ ...newBid, bidder: e.target.value })} />
@@ -57,9 +68,16 @@ const Bids = ({ house }) => {
                         value={newBid.amount} onChange={(e) => setNewBid({ ...newBid, amount: parseInt(e.target.value) })} />
                 </div>
                 <div className="col-2">
-                    <button className="btn btn-primary" onClick={onBidSubmitClick}>Submit Bid</button>
+                    <button className="btn btn-primary" onClick={onBidSubmitClick} disabled={isPending}>Submit Bid</button>
                 </div>
-            </div>
+            </div> */}
+            <form className="row g-3 mt-2" action={bidSubmitAction}>
+                <div className="col-md-5">
+                    <input type="text" className="form-control" id="bidder" name="bidder" placeholder="Bidder Name"/>
+                    <input type="number" className="form-control" id="amount" name="amount" placeholder="Amount"/>
+                    <button className="btn btn-primary" disabled={isPending} type="submit">Add</button>
+                </div>
+                </form>
         </>
     )
 }
